@@ -1,0 +1,52 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+
+android {
+    compileSdkVersion 26
+
+
+    defaultConfig {
+        applicationId "cn.ikaze.healthgo"
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        debug {
+            // Show Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+
+        }
+
+        release {
+            // Do not display Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //Confuse
+            minifyEnabled true
+            //Zipalign optimization
+            zipAlignEnabled true
+
+            // Remove useless resource files
+            shrinkResources true
+            //The first part represents the obfuscation file of the system default android program, which already contains the basic obfuscation statement
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            //签名
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
+
+}
